@@ -1,6 +1,8 @@
 function makeBoxParsingTest(i) {
 	var boxtestIndex = i;
-	QUnit.asyncTest(boxtests[boxtestIndex].boxname, function( assert ) {
+	QUnit.test(boxtests[boxtestIndex].boxname, function( assert ) {
+		var done = assert.async();
+	    
 		var timeout = window.setTimeout(function() { assert.ok(false, "Timeout"); QUnit.start(); }, TIMEOUT_MS);
 		var callback = function (buffer) {
 			var file;
@@ -17,7 +19,7 @@ function makeBoxParsingTest(i) {
 			}
 			file.parse();
 			checkBoxData(assert, file[boxtests[boxtestIndex].boxname], boxtests[boxtestIndex].data);
-			QUnit.start();
+			done();
 		};
 		var rangeStart = boxtests[boxtestIndex].rangeStart || 0;
 		var rangeEnd = (boxtests[boxtestIndex].rangeSize+boxtests[boxtestIndex].rangeStart-1) || Infinity;

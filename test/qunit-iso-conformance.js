@@ -1,5 +1,7 @@
 function makeBoxParsingTest(fileIndex) {
-	QUnit.asyncTest(conformanceFiles[fileIndex], function( assert ) {
+	QUnit.test(conformanceFiles[fileIndex], function( assert ) {
+		var done = assert.async();
+	    
 		var timeout = window.setTimeout(function() { assert.ok(false, "Timeout"); QUnit.start(); }, TIMEOUT_MS);
 		var callback = function (buffer) {
 			window.clearTimeout(timeout);
@@ -9,7 +11,7 @@ function makeBoxParsingTest(fileIndex) {
 			file.parse();
 			file.write(new DataStream(new ArrayBuffer(), 0, DataStream.BIG_ENDIAN));
 			assert.ok(true, "file "+conformanceFiles[fileIndex]+" parsing");
-			QUnit.start();
+			done();
 		};
 		if (conformanceFiles[fileIndex].indexOf("14_large")>-1) {
 			getFileRange(mediaTestBaseUrl+conformanceFiles[fileIndex], 0, 1156, callback);

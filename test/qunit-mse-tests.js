@@ -1,5 +1,5 @@
 QUnit.module("MSE");
-QUnit.asyncTest( "Appending init segment", function( assert ) {
+QUnit.test( "Appending init segment", function( assert ) {
 	var index = 0;
 	var track_id;
 	var timeout = window.setTimeout(function() { assert.ok(false, "Timeout"); QUnit.start(); }, 2000);
