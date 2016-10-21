@@ -609,7 +609,7 @@ QUnit.test( "appending only one buffer with fileStart different from zero should
 	var done = assert.async();
     var index = 0;
 	var mp4box = new MP4Box();
-	QUnit.expect(0);
+	assert.expect(0);
 	mp4box.onReady = function(info) { 
 		assert.ok(false, "moov found!" );
 	}
@@ -1133,7 +1133,7 @@ QUnit.test( "issue #16 (Peersm)", function( assert ) {
 	var index = 10;
 	var timeout = window.setTimeout(function() { assert.ok(false, "Timeout"); done(); }, TIMEOUT_MS);
 	var mp4box = new MP4Box();
-	QUnit.expect(0);
+	assert.expect(0);
 	getFileRange(testFiles[index].url, 0, 996599, function (buffer) {
 		mp4box.appendBuffer(buffer);
 		mp4box = new MP4Box();
