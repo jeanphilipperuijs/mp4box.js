@@ -87,6 +87,7 @@ module.exports = function(grunt) {
       options: {
         // options here to override JSHint defaults
         eqeqeq: false,
+        esversion: 6,
         asi: true,
         loopfunc: true,
         eqnull: true,
