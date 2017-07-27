@@ -24,8 +24,8 @@ API
 Similar to `MP4Box -info file.mp4`, MP4Box.js can provide general information about the file (duration, number and types of tracks ...). For that, create an MP4Box object, set the `onReady` callback and provide data in the form of ArrayBuffer objects. MP4Box.js supports progressive parsing. You can provide small buffers at a time, the callback will be called when the 'moov' box is parsed.
 
 ```javascript
-var MP4Box = require('mp4box').MP4Box; // Or whatever import method you prefer.
-var mp4box = new MP4Box();
+let MP4Box = require('mp4box').MP4Box; // Or whatever import method you prefer.
+let mp4box = new MP4Box();
 mp4box.onError = function(e) {};
 mp4box.onReady = function(info) {};
 mp4box.appendBuffer(data);
@@ -158,9 +158,9 @@ mp4box.onError = function (e) {
 ####appendBuffer(data)####
 Provides an ArrayBuffer to parse from. The ArrayBuffer must have a `fileStart` (Number) property indicating the 0-based position of first byte of the ArrayBuffer in the original file. Returns the offset (in the original file) that is expected to be the `fileStart` value of the next buffer. This is particularly useful when the moov box is not at the beginning of the file.
 ```javascript
-var ab = getArrayBuffer();
+let ab = getArrayBuffer();
 ab.fileStart = 0;
-var nextBufferStart = mp4box.appendBuffer(ab);
+let nextBufferStart = mp4box.appendBuffer(ab);
 ```
 
 ####start()####
@@ -175,12 +175,12 @@ Indicates that no more data will be received and that all remaining samples shou
 ###Segmentation###
 
 ```javascript
-var mp4box = new MP4Box();
+let mp4box = new MP4Box();
 mp4box.onReady = function(info) {
   ...
   mp4box.onSegment = function (id, user, buffer) {}
   mp4box.setSegmentOptions(info.tracks[0].id, sb, options);  
-  var initSegs = mp4box.initializeSegmentation();  
+  let initSegs = mp4box.initializeSegmentation();  
   mp4box.start();
   ...
 };
@@ -234,11 +234,11 @@ Indicates that the application is ready to receive segments. Returns an array of
 ###Extraction###
 It is possible to extract the samples of a track, in a similar manner to the segmentation process.
 ```javascript
-var mp4box = new MP4Box();
+let mp4box = new MP4Box();
 mp4box.onReady = function(info) {
   ...
   /* create a texttrack */
-  var texttrack = v.addTextTrack("metadata", "Text track for extraction of track "+info.tracks[0].id);
+  let texttrack = v.addTextTrack("metadata", "Text track for extraction of track "+info.tracks[0].id);
   mp4box.onSamples = function (id, user, samples) {}
   mp4box.setExtractionOptions(info.tracks[0].id, texttrack, options);  
   mp4box.start();
@@ -333,4 +333,4 @@ Contribute
 =======
 If your favorite box is not parsed by MP4Box, you can easily contribute. Each box parsing code is stored in a separate file whose name is the 4CC of the box type. For instance, the parsing of the ```ctts``` box is located in [ctts.js](src/parsing/ctts.js).
 
-To contribute to MP4Box.js, simply clone the repository, run `npm install` and `grunt test`.
+To contribute to MP4Box.js, simply clone the repository, run `npm install --only=dev` and `grunt test`.
